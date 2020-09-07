@@ -8,23 +8,14 @@ m = length(y); % number of training examples
 J_history = zeros(num_iters, 1);
 
 for iter = 1:num_iters
+    % Compute the new theta0 and theta1 using simultaneous update
+    hypothesis=theta(1)*X(:,1)+theta(2)*X(:,2);
+    tempThetaZero=theta(1)-alpha*(1/m)*sum((hypothesis-y).*X(:,1));
+    tempThetaOne=theta(2)-alpha*(1/m)*sum((hypothesis-y).*X(:,2));
 
-    % ====================== YOUR CODE HERE ======================
-    % Instructions: Perform a single gradient step on the parameter vector
-    %               theta. 
-    %
-    % Hint: While debugging, it can be useful to print out the values
-    %       of the cost function (computeCost) and gradient here.
-    %
-
-
-
-
-
-
-
-    % ============================================================
-
+    % Assign the newly computed values for theta0 and theta1
+    theta=[tempThetaZero; tempThetaOne];
+    
     % Save the cost J in every iteration    
     J_history(iter) = computeCost(X, y, theta);
 
