@@ -13,6 +13,6 @@ summation = sum(-y .* log(hypothesis) - (1 - y) .* log(1 - hypothesis));
 J = (1 / m) * summation;
 
 % Implement gradient descent
-grad = zeros(size(theta));
+grad = (1 / m) * sum((hypothesis - y) .* X);
 
 end
