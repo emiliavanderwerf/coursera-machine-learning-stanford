@@ -21,13 +21,17 @@ p = zeros(size(X, 1), 1);
 %       can use max(A, [], 2) to obtain the max for each row.
 %
 
+% Compute sigmoid for input layer
+X_with_bias_unit = [ones(m, 1) X];
+hypothesis_theta1 = sigmoid(X_with_bias_unit * Theta1');
 
+% Compute sigmoid for hidden layer
+hypothesis_theta1_with_bias_unit = [ones(m, 1) hypothesis_theta1];
+hypothesis_theta2 = sigmoid(hypothesis_theta1_with_bias_unit * Theta2');
 
-
-
-
-
-
+% Predict the digit
+[value, index] = max(hypothesis_theta2, [], 2);
+p = index;
 
 % =========================================================================
 
