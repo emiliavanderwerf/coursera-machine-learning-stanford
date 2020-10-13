@@ -121,25 +121,10 @@ Theta2_grad = (1 / m) * Theta2_grad;
 %               and Theta2_grad from Part 2.
 %
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-% -------------------------------------------------------------
+% Regularize the gradient for j >= 1; note that when j = 0, no regularization
+% is necessary
+Theta1_grad(:, 2:end) = Theta1_grad(:, 2:end) + ((lambda / m) * Theta1(:, 2:end));
+Theta2_grad(:, 2:end) = Theta2_grad(:, 2:end) + ((lambda / m) * Theta2(:, 2:end));
 
 % =========================================================================
 
