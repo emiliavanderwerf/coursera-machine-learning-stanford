@@ -83,7 +83,35 @@ J = J + (lambda / (2*m)) * (sum(sum(Theta1_nobias.^2)) + sum(sum(Theta2_nobias.^
 %               over the training examples if you are implementing it for the 
 %               first time.
 
+for t = 1 : m,
 
+  % Step 1: Perform a feedforward pass, computing the activations for layers 2
+  % and 3.
+  a_1 = X(t,:); % Get the t-th row; already has the bias unit
+  z_2 = Theta1 * a_1';
+  a_2 = sigmoid(z_2);
+  a_2 = [1; a_2]; % Add the bias unit
+  z_3 = Theta2 * a_2;
+  h_theta = sigmoid(z_3); % a_3 is the final activation layer
+
+  % Step 2: Compute delta sub k for layer 3 (the output layer)
+  delta_3 = h_theta - y_recode(:, t); % (10x1)
+  
+  % Step 3: Compute delta for hidden layer 2
+  z_2 = [1; z_2]; % Add the bias unit
+  delta_2 = (Theta2' * delta_3) .* sigmoidGradient(z_2);
+  
+  % Step 4: Accumulate the gradient; skip or remove delta sub zero of layer 2
+  delta_2 = delta_2(2 : end);
+  Theta2_grad = Theta2_grad + delta_3 * a_2';
+  Theta1_grad = Theta1_grad + delta_2 * a_1;  
+
+endfor
+
+% Step 5: Obtain the unregularized gradient for the neural net cust function
+% by dividing the accumulated gradients by 1/m
+Theta1_grad = (1 / m) * Theta1_grad;
+Theta2_grad = (1 / m) * Theta2_grad;
 
 % Part 3: Implement regularization with the cost function and gradients.
 %
