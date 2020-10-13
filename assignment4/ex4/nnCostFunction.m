@@ -38,7 +38,33 @@ Theta2_grad = zeros(size(Theta2));
 %         variable J. After implementing Part 1, you can verify that your
 %         cost function computation is correct by verifying the cost
 %         computed in ex4.m
-%
+
+% Add the bias unit
+X = [ones(m, 1) X];
+
+% Recode the labels as vectors containing only values of 0 and 1 to use in the
+% cost function
+y_recode = zeros(num_labels, size(y,1));
+for i = 1 : size(y, 1),
+  y_recode(y(i), i) = 1;
+endfor
+
+% Calculate h_theta of x(i) sub k, which is the activation (output value) of the
+% kth output unit.
+% Do forward propagation:
+a_1 = X;
+z_2 = Theta1 * a_1';
+a_2 = [ones(m, 1) sigmoid(z_2)'];
+h_theta = sigmoid(Theta2 * a_2');
+
+% This is the unregularized cost; still need to regularize
+J = (1 / m) * sum(sum(-y_recode .* log(h_theta) - (1-y_recode) .* log(1-h_theta)));
+
+% Remove the bias unit, since we do not regularize it
+Theta1_nobias = Theta1(:, 2:size(Theta1,2));
+Theta2_nobias = Theta2(:, 2:size(Theta2,2));
+ 
+
 % Part 2: Implement the backpropagation algorithm to compute the gradients
 %         Theta1_grad and Theta2_grad. You should return the partial derivatives of
 %         the cost function with respect to Theta1 and Theta2 in Theta1_grad and
