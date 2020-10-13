@@ -82,7 +82,9 @@ J = J + (lambda / (2*m)) * (sum(sum(Theta1_nobias.^2)) + sum(sum(Theta2_nobias.^
 %         Hint: We recommend implementing backpropagation using a for-loop
 %               over the training examples if you are implementing it for the 
 %               first time.
-%
+
+
+
 % Part 3: Implement regularization with the cost function and gradients.
 %
 %         Hint: You can implement this around the code for
