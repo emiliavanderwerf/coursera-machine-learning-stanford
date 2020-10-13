@@ -60,10 +60,13 @@ h_theta = sigmoid(Theta2 * a_2');
 % This is the unregularized cost; still need to regularize
 J = (1 / m) * sum(sum(-y_recode .* log(h_theta) - (1-y_recode) .* log(1-h_theta)));
 
+% Perform regularization
 % Remove the bias unit, since we do not regularize it
 Theta1_nobias = Theta1(:, 2:size(Theta1,2));
 Theta2_nobias = Theta2(:, 2:size(Theta2,2));
- 
+
+% Regularization function
+J = J + (lambda / (2*m)) * (sum(sum(Theta1_nobias.^2)) + sum(sum(Theta2_nobias.^2)));
 
 % Part 2: Implement the backpropagation algorithm to compute the gradients
 %         Theta1_grad and Theta2_grad. You should return the partial derivatives of
