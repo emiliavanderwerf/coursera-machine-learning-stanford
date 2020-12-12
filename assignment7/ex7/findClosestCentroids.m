@@ -21,7 +21,24 @@ idx = zeros(size(X,1), 1);
 % Note: You can use a for-loop over the examples to compute this.
 %
 
+m = size(X,1);
 
+for item_idx = 1:m
+  closest_dist = intmax;
+  closest_centroid_idx = -1;
+  for centroid_idx = 1:K    
+    % Calculate the distance between the item and the centroid
+    dist = sqrt(sum((X(item_idx,:) - centroids(centroid_idx,:)).^2));
+
+    % Save away the shortest distance centroid
+    if (dist < closest_dist)
+      closest_dist = dist;
+      closest_centroid_idx = centroid_idx;
+    endif
+  endfor
+
+  idx(item_idx) = closest_centroid_idx;
+endfor
 
 
 
