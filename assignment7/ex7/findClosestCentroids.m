@@ -40,10 +40,6 @@ for item_idx = 1:m
   idx(item_idx) = closest_centroid_idx;
 endfor
 
-
-
-
-
 % =============================================================
 
 end

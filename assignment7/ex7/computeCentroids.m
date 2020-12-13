@@ -26,12 +26,22 @@ centroids = zeros(K, n);
 % Note: You can use a for-loop over the centroids to compute this.
 %
 
+for k = 1:K
+  num = 0;
+  sum = zeros(1,n);
 
+  for i = 1:size(idx)
+    id = idx(i);
 
-
-
-
-
+    if eq(id, k)
+      sum = sum + X(i,:);
+      num = num + 1;
+    endif
+  endfor
+  
+  % Compute the mean for the kth centroid
+  centroids(k,:) = sum ./ num;
+endfor
 
 % =============================================================
 
